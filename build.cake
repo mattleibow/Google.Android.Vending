@@ -53,6 +53,7 @@ Task("Build")
     .IsDependentOn("Externals")
     .Does(() =>
 {
+    DotNetBuild("./source/Google.Android.Vending.sln");
 });
 
 Task("Clean")

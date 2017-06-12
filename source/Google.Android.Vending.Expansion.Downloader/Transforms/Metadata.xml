@@ -1,0 +1,15 @@
+﻿<metadata>
+  <!--
+  This sample removes the class: android.support.v4.content.AsyncTaskLoader.LoadTask:
+  <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='AsyncTaskLoader.LoadTask']" />
+  
+  This sample removes the method: android.support.v4.content.CursorLoader.loadInBackground:
+  <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='CursorLoader']/method[@name='loadInBackground']" />
+  -->
+
+  <attr path="/api/package[@name='com.google.android.vending.expansion.downloader']" name="managedName">Google.Android.Vending.Expansion.Downloader</attr>
+  <attr path="/api/package[@name='com.google.android.vending.expansion.downloader.impl']" name="managedName">Google.Android.Vending.Expansion.Downloader.Impl</attr>
+
+  <attr path="/api/package[@name='com.android.vending.expansion.downloader']" name="managedName">Google.Android.Vending.Expansion.Downloader</attr>
+
+</metadata>
