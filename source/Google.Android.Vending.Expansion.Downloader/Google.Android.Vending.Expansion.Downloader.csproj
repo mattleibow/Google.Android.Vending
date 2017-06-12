@@ -39,6 +39,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers.cs" />
+    <Compile Include="DownloadsDB.cs" />
+    <Compile Include="DownloaderService.cs" />
+    <Compile Include="DownloaderClientMarshaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

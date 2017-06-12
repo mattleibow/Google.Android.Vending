@@ -39,6 +39,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APEZProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,12 +53,6 @@
     <LibraryProjectZip Include="..\..\native\market_apk_expansion_zipfile\build\outputs\aar\market_apk_expansion_zipfile-release.aar">
       <Link>Jars\market_apk_expansion_zipfile-release.aar</Link>
     </LibraryProjectZip>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Google.Android.Vending.Expansion.Downloader\Google.Android.Vending.Expansion.Downloader.csproj">
-      <Project>{6ea16bdb-2d45-4de2-a199-5a49dcd7b9a7}</Project>
-      <Name>Google.Android.Vending.Expansion.Downloader</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
