@@ -9,8 +9,6 @@ using Android.Widget;
 
 using Google.Android.Vending.Licensing;
 
-using Uri = Android.Net.Uri;
-
 namespace LicensingSample
 {
 	/// <summary>
@@ -64,14 +62,14 @@ namespace LicensingSample
 			string deviceId = Settings.Secure.GetString(ContentResolver, Settings.Secure.AndroidId);
 
 			// Construct the LicenseChecker with a policy.
-			var obfuscator = new AESObfuscator(Salt, this.PackageName, deviceId);
+			var obfuscator = new AESObfuscator(Salt, PackageName, deviceId);
 			var policy = new ServerManagedPolicy(this, obfuscator);
-			this.checker = new LicenseChecker(this, policy, Base64PublicKey);
+			checker = new LicenseChecker(this, policy, Base64PublicKey);
 
-			this.checkLicenseButton = FindViewById<Button>(Resource.Id.checkButton);
-			this.checkLicenseButton.Click += delegate { this.DoCheck(); };
+			checkLicenseButton = FindViewById<Button>(Resource.Id.checkButton);
+			checkLicenseButton.Click += delegate { DoCheck(); };
 
-			this.DoCheck();
+			DoCheck();
 		}
 
 		protected override Dialog OnCreateDialog(int id)
@@ -82,13 +80,13 @@ namespace LicensingSample
 			{
 				if (retry)
 				{
-					this.DoCheck();
+					DoCheck();
 				}
 				else
 				{
-					Uri uri = Uri.Parse("http://market.android.com/details?id=" + this.PackageName);
+					var uri = Android.Net.Uri.Parse("http://market.android.com/details?id=" + PackageName);
 					var marketIntent = new Intent(Intent.ActionView, uri);
-					this.StartActivity(marketIntent);
+					StartActivity(marketIntent);
 				}
 			};
 
@@ -105,38 +103,38 @@ namespace LicensingSample
 
 		private void DoCheck()
 		{
-			this.checkLicenseButton.Enabled = false;
-			this.SetProgressBarIndeterminateVisibility(true);
-			this.checkLicenseButton.SetText(Resource.String.checking_license);
-			this.checker.CheckAccess(this);
+			checkLicenseButton.Enabled = false;
+			SetProgressBarIndeterminateVisibility(true);
+			checkLicenseButton.SetText(Resource.String.checking_license);
+			checker.CheckAccess(this);
 		}
 
 		private void DisplayResult(string result)
 		{
-			this.RunOnUiThread(
+			RunOnUiThread(
 				delegate
 				{
-					this.checkLicenseButton.Text = result;
-					this.SetProgressBarIndeterminateVisibility(false);
-					this.checkLicenseButton.Enabled = true;
+					checkLicenseButton.Text = result;
+					SetProgressBarIndeterminateVisibility(false);
+					checkLicenseButton.Enabled = true;
 				});
 		}
 
 		private void DisplayDialog(bool showRetry)
 		{
-			this.RunOnUiThread(
+			RunOnUiThread(
 				delegate
 				{
 					SetProgressBarIndeterminateVisibility(false);
 					ShowDialog(showRetry ? 1 : 0);
-					this.checkLicenseButton.Enabled = true;
+					checkLicenseButton.Enabled = true;
 				});
 		}
 
 		protected override void OnDestroy()
 		{
 			base.OnDestroy();
-			this.checker.OnDestroy();
+			checker.OnDestroy();
 		}
 
 		/// <summary>
@@ -145,13 +143,13 @@ namespace LicensingSample
 		/// <param name="response"></param>
 		public void Allow(int response)
 		{
-			if (this.IsFinishing)
+			if (IsFinishing)
 			{
 				// Don't update UI if Activity is finishing.
 				return;
 			}
 
-			this.DisplayResult(this.GetString(Resource.String.allow));
+			DisplayResult(GetString(Resource.String.allow));
 		}
 
 		/// <summary>
@@ -170,14 +168,14 @@ namespace LicensingSample
 		/// <param name="response"></param>
 		public void DontAllow(int response)
 		{
-			if (this.IsFinishing)
+			if (IsFinishing)
 			{
 				// Don't update UI if Activity is finishing.
 				return;
 			}
 
-			this.DisplayResult(this.GetString(Resource.String.dont_allow));
-			this.DisplayDialog(response == Policy.Retry);
+			DisplayResult(GetString(Resource.String.dont_allow));
+			DisplayDialog(response == Policy.Retry);
 		}
 
 		/// <summary>
@@ -188,14 +186,14 @@ namespace LicensingSample
 		/// <param name="errorCode"></param>
 		public void ApplicationError(int errorCode)
 		{
-			if (this.IsFinishing)
+			if (IsFinishing)
 			{
 				// Don't update UI if Activity is finishing.
 				return;
 			}
 
-			var errorString = this.GetString(Resource.String.application_error);
-			this.DisplayResult(string.Format(errorString, errorCode));
+			var errorString = GetString(Resource.String.application_error);
+			DisplayResult(string.Format(errorString, errorCode));
 		}
 	}
 }
